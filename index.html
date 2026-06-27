@@ -1,490 +1,323 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Metaworkers.AI — Governed Customer Memory</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#F8F9FB;--surface:#FFFFFF;--surface2:#F1F4F9;
-  --text:#0F172A;--muted:#64748B;--light:#94A3B8;
-  --accent:#2563EB;--accent-light:#EFF6FF;--accent-mid:#BFDBFE;
-  --border:rgba(15,23,42,0.08);--border-md:rgba(15,23,42,0.14);
-  --shadow:0 1px 4px rgba(15,23,42,0.07),0 4px 16px rgba(15,23,42,0.05);
-  --shadow-md:0 2px 8px rgba(15,23,42,0.08),0 8px 32px rgba(15,23,42,0.08);
-}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6;overflow-x:hidden}
-a{color:inherit;text-decoration:none}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metaworkers.AI</title>
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(248,249,251,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.logo{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;letter-spacing:-0.02em;color:var(--text)}
-.logo-dot{width:8px;height:8px;background:var(--accent);border-radius:50%}
-.nav-links{display:flex;align-items:center;gap:28px}
-.nav-links a{font-size:13px;color:var(--muted);transition:color .2s;font-weight:500}
-.nav-links a:hover{color:var(--text)}
-.btn-nav-outline{background:transparent;color:var(--text);font-size:13px;font-weight:600;padding:8px 18px;border-radius:7px;border:1px solid var(--border-md);cursor:pointer;transition:all .2s}
-.btn-nav-outline:hover{background:var(--surface2);border-color:var(--border-md)}
-.btn-nav-primary{background:var(--accent);color:#fff;font-size:13px;font-weight:600;padding:8px 18px;border-radius:7px;border:none;cursor:pointer;transition:all .2s}
-.btn-nav-primary:hover{background:#1d4ed8}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#FFF8EE;
+    color:#1f2937;
+}
+
+/* NAVBAR */
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    background:white;
+    box-shadow:0 2px 12px rgba(0,0,0,0.08);
+    padding:18px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:1000;
+}
+
+.logo{
+    font-size:1.7rem;
+    font-weight:700;
+    color:#6366F1;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:25px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#374151;
+    font-weight:500;
+    height:42px;
+    display:flex;
+    align-items:center;
+}
+
+.signup-btn{
+    background:#6366F1;
+    color:white !important;
+    padding:0 22px;
+    border-radius:25px;
+}
+
+.signup-btn:hover{
+    background:#4f46e5;
+}
 
 /* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden;background:linear-gradient(180deg,#EFF6FF 0%,#F8F9FB 60%)}
-.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent-mid),transparent)}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--accent-mid);border-radius:100px;padding:5px 14px;font-size:12px;color:var(--accent);font-weight:600;margin-bottom:36px;letter-spacing:.02em;box-shadow:0 1px 4px rgba(37,99,235,0.1)}
-.hero-badge span{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-h1{font-size:clamp(36px,5.5vw,68px);font-weight:800;letter-spacing:-0.04em;line-height:1.08;max-width:820px;margin:0 auto 24px;color:var(--text)}
-h1 .dim{color:var(--muted);font-weight:600}
-.hero-sub{font-size:clamp(15px,1.6vw,18px);color:var(--muted);max-width:540px;margin:0 auto 44px;line-height:1.75}
-.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:56px}
-.btn-primary{background:var(--accent);color:#fff;font-size:14px;font-weight:600;padding:12px 26px;border-radius:8px;border:none;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(37,99,235,0.25)}
-.btn-primary:hover{background:#1d4ed8;transform:translateY(-1px);box-shadow:0 4px 16px rgba(37,99,235,0.3)}
-.btn-secondary{background:#fff;color:var(--text);font-size:14px;font-weight:600;padding:12px 26px;border-radius:8px;border:1px solid var(--border-md);cursor:pointer;transition:all .2s;box-shadow:var(--shadow)}
-.btn-secondary:hover{background:var(--surface2);transform:translateY(-1px)}
-.trust-row{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap}
-.trust-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);font-weight:500}
-.trust-check{width:16px;height:16px;border-radius:50%;background:var(--accent-light);border:1px solid var(--accent-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.trust-check svg{width:9px;height:9px;stroke:var(--accent);stroke-width:2.5;fill:none}
-.trust-divider{width:1px;height:14px;background:var(--border-md)}
 
-/* CANVAS */
-#memory-canvas{width:100%;max-width:860px;margin:0 auto;height:400px;position:relative}
-canvas#net{position:absolute;inset:0;width:100%;height:100%}
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:120px 8%;
+    background:linear-gradient(
+        135deg,
+        #FFF8EE 0%,
+        #FDF2F8 50%,
+        #EEF6FF 100%
+    );
+}
 
-/* LOGOS */
-.logos-strip{padding:36px 24px;background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center}
-.logos-strip p{font-size:11px;color:var(--light);letter-spacing:.12em;text-transform:uppercase;margin-bottom:24px;font-weight:600}
-.logos-row{display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap}
-.logo-name{font-size:14px;font-weight:700;letter-spacing:-0.01em;color:#CBD5E1}
+.hero-content{
+    max-width:900px;
+}
 
-/* SECTIONS */
-section{padding:96px 24px}
-.container{max-width:1080px;margin:0 auto}
-.section-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
-.section-title{font-size:clamp(26px,3.5vw,44px);font-weight:800;letter-spacing:-0.03em;line-height:1.15;margin-bottom:16px;color:var(--text)}
-.section-sub{font-size:16px;color:var(--muted);max-width:480px;line-height:1.75}
+.hero h1{
+    font-size:4rem;
+    margin-bottom:20px;
+    line-height:1.2;
+}
 
-/* PRODUCT */
-.product-wrap{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;margin-top:64px}
-@media(max-width:768px){.product-wrap{grid-template-columns:1fr}}
-.product-card{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;font-size:13px;box-shadow:var(--shadow-md)}
-.card-topbar{background:var(--surface2);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
-.card-title-bar{display:flex;align-items:center;gap:8px}
-.card-dot{width:8px;height:8px;background:var(--accent);border-radius:50%}
-.card-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.card-badge{font-size:10px;background:#DCFCE7;color:#16a34a;padding:3px 8px;border-radius:4px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
-.card-body{padding:16px}
-.card-section{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border)}
-.card-section:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
-.card-section-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--light);margin-bottom:8px}
-.profile-row{display:flex;align-items:center;gap:10px}
-.avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#2563EB,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
-.profile-name{font-weight:700;font-size:13px;color:var(--text);margin-bottom:1px}
-.profile-meta{font-size:11px;color:var(--muted)}
-.tag-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.tag{font-size:10px;padding:3px 8px;border-radius:5px;font-weight:600}
-.tag-blue{background:#EFF6FF;color:#2563EB;border:1px solid #BFDBFE}
-.tag-amber{background:#FFFBEB;color:#d97706;border:1px solid #FDE68A}
-.tag-red{background:#FEF2F2;color:#dc2626;border:1px solid #FECACA}
-.sla-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
-.sla-bar-wrap{background:var(--surface2);border-radius:100px;height:4px;flex:1;margin:0 10px;overflow:hidden}
-.sla-bar{height:100%;border-radius:100px;background:var(--accent)}
-.sla-bar.warn{background:#f59e0b}
-.ai-summary{background:var(--accent-light);border:1px solid var(--accent-mid);border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.65;color:#1e3a8a}
-.citation-row{display:flex;align-items:center;gap:6px;margin-top:7px}
-.cite-chip{font-size:10px;background:#fff;border:1px solid var(--border-md);border-radius:4px;padding:2px 7px;color:var(--muted);font-weight:500}
-.compliance-row{display:flex;gap:10px;flex-wrap:wrap}
-.comp-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);font-weight:500}
-.comp-check{width:14px;height:14px;border-radius:3px;background:#DCFCE7;border:1px solid #86EFAC;display:flex;align-items:center;justify-content:center}
-.comp-check svg{width:9px;height:9px;stroke:#16a34a;stroke-width:2.5;fill:none}
-.ticket-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)}
-.ticket-row:last-child{border-bottom:none;padding-bottom:0}
-.ticket-id{font-size:10px;color:var(--accent);font-weight:700}
-.ticket-desc{font-size:11px;color:var(--muted);max-width:160px}
-.status-resolved{color:#16a34a;font-size:10px;font-weight:600}
-.status-open{color:#d97706;font-size:10px;font-weight:600}
+.hero span{
+    color:#6366F1;
+}
+
+.hero p{
+    color:#6B7280;
+    font-size:1.2rem;
+    margin-bottom:35px;
+}
+
+.btn{
+    display:inline-block;
+    text-decoration:none;
+    padding:14px 28px;
+    border-radius:30px;
+    margin:10px;
+    transition:0.3s;
+}
+
+.btn-primary{
+    background:#6366F1;
+    color:white;
+}
+
+.btn-secondary{
+    border:2px solid #6366F1;
+    color:#6366F1;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+/* ABOUT */
+
+section{
+    padding:100px 8%;
+}
+
+.section-title{
+    text-align:center;
+    font-size:2.5rem;
+    margin-bottom:50px;
+}
+
+.about{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+    line-height:1.8;
+    color:#4B5563;
+}
 
 /* FEATURES */
-.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:64px;box-shadow:var(--shadow)}
-.feat-card{background:#fff;padding:32px;transition:background .2s}
-.feat-card:hover{background:var(--accent-light)}
-.feat-icon{width:40px;height:40px;border-radius:10px;background:var(--accent-light);border:1px solid var(--accent-mid);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
-.feat-icon svg{width:18px;height:18px;stroke:var(--accent);stroke-width:1.6;fill:none}
-.feat-title{font-size:15px;font-weight:700;margin-bottom:8px;letter-spacing:-0.01em;color:var(--text)}
-.feat-desc{font-size:13px;color:var(--muted);line-height:1.7}
 
-/* FOUNDER */
-.founder-section{background:#fff;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.founder-wrap{display:grid;grid-template-columns:1fr 1.8fr;gap:64px;align-items:center}
-@media(max-width:768px){.founder-wrap{grid-template-columns:1fr}}
-.founder-left{text-align:center}
-.founder-photo{width:160px;height:160px;border-radius:50%;background:linear-gradient(135deg,#EFF6FF,#E0E7FF);border:3px solid #BFDBFE;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:44px;font-weight:800;letter-spacing:-0.03em;color:var(--accent)}
-.founder-name{font-size:20px;font-weight:800;letter-spacing:-0.02em;margin-bottom:4px;color:var(--text)}
-.founder-role{font-size:13px;color:var(--muted);font-weight:500}
-.founder-stats{display:flex;gap:24px;justify-content:center;margin-top:24px}
-.founder-stat strong{font-size:22px;font-weight:800;color:var(--accent);display:block;letter-spacing:-0.02em}
-.founder-stat span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
-.founder-quote{font-size:clamp(17px,2.2vw,24px);font-weight:600;line-height:1.45;letter-spacing:-0.02em;color:var(--text);margin-bottom:24px;padding-left:20px;border-left:3px solid var(--accent)}
-.founder-bio{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:24px}
-.badge-row{display:flex;gap:8px;flex-wrap:wrap}
-.badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;padding:5px 12px;border-radius:100px;background:var(--surface2);border:1px solid var(--border);color:var(--muted)}
+.features-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+}
 
-/* CTA */
-.cta-section{padding:96px 24px;text-align:center;background:linear-gradient(180deg,var(--bg) 0%,#EFF6FF 100%);border-top:1px solid var(--border)}
-.cta-section h2{font-size:clamp(26px,4vw,52px);font-weight:800;letter-spacing:-0.04em;margin-bottom:16px;line-height:1.1;color:var(--text)}
-.cta-sub{font-size:16px;color:var(--muted);margin-bottom:40px;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.7}
+.card{
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.card h3{
+    color:#6366F1;
+    margin-bottom:15px;
+}
 
 /* FOOTER */
-footer{background:#fff;border-top:1px solid var(--border);padding:32px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
-.footer-logo{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--muted)}
-.footer-links{display:flex;gap:24px}
-.footer-links a{font-size:12px;color:var(--muted);font-weight:500;transition:color .2s}
-.footer-links a:hover{color:var(--accent)}
-.footer-copy{font-size:12px;color:var(--light)}
 
-/* MODAL SHARED */
-.modal-overlay{display:none;position:fixed;inset:0;z-index:300;background:rgba(15,23,42,0.45);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px}
-.modal-box{background:#fff;border:1px solid var(--border);border-radius:18px;width:100%;padding:40px;position:relative;box-shadow:0 8px 40px rgba(15,23,42,0.15)}
-.modal-close{position:absolute;top:16px;right:16px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;color:var(--muted);font-size:18px;width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;font-family:inherit}
-.modal-close:hover{background:var(--border)}
-.modal-badge{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.modal-badge-dot{width:7px;height:7px;background:var(--accent);border-radius:50%}
-.modal-badge span{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
-.modal-title{font-size:22px;font-weight:800;letter-spacing:-0.03em;margin-bottom:6px;color:var(--text)}
-.modal-sub{font-size:13px;color:var(--muted);margin-bottom:26px;line-height:1.6}
-.field-label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
-.field-input{width:100%;background:var(--surface2);border:1px solid var(--border-md);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text);outline:none;font-family:inherit;transition:border-color .2s}
-.field-input:focus{border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,0.1)}
-.field-wrap{margin-bottom:14px}
-.submit-btn{width:100%;background:var(--accent);color:#fff;font-size:14px;font-weight:700;padding:12px;border-radius:9px;border:none;cursor:pointer;transition:all .2s;font-family:inherit}
-.submit-btn:hover{background:#1d4ed8}
-.modal-divider{margin:20px 0;padding-top:20px;border-top:1px solid var(--border)}
-.contact-detail{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.contact-detail svg{flex-shrink:0}
-.contact-detail a,.contact-detail span{font-size:12px;color:var(--muted);font-weight:500}
-.contact-detail a:hover{color:var(--accent)}
+footer{
+    text-align:center;
+    padding:30px;
+    color:#6B7280;
+}
+
+@media(max-width:768px){
+
+nav{
+    flex-direction:column;
+    gap:15px;
+}
+
+.hero h1{
+    font-size:2.5rem;
+}
+
+.nav-links{
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+}
+
 </style>
 </head>
+
 <body>
 
-<!-- NAV -->
 <nav>
-  <div class="logo">
-    <div class="logo-dot"></div>
-    Metaworkers<span style="color:var(--accent)">.AI</span>
-  </div>
-  <div class="nav-links">
-    <a href="#product">Product</a>
-    <a href="#features">Features</a>
-    <a href="#founder">Team</a>
-  </div>
-  <div style="display:flex;align-items:center;gap:10px">
-    <button class="btn-nav-outline" onclick="document.getElementById('signup-modal').style.display='flex'">Sign Up</button>
-    <button class="btn-nav-primary">Request Demo</button>
-  </div>
+
+<div class="logo">
+Metaworkers.AI
+</div>
+
+<div class="nav-links">
+
+<a href="metaworkers_landing.html">Home</a>
+
+<a href="#about">About</a>
+
+<a href="#features">Features</a>
+
+<a href="#" class="signup-btn">Sign Up</a>
+
+</div>
+
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-badge"><span></span>Enterprise AI Memory Infrastructure</div>
-  <h1>Governed Customer Memory<br/><span class="dim">for Enterprise AI Agents</span></h1>
-  <p class="hero-sub">The secure memory layer that helps AI support agents remember customer history, cite sources, enforce compliance, and deliver better customer experiences. Reach us at info@metaworkers.ai</p>
-  <div class="hero-btns">
-    <button class="btn-primary">Request Demo</button>
-    <button class="btn-secondary">Become a Design Partner →</button>
-  </div>
-  <div class="trust-row">
-    <div class="trust-item"><div class="trust-check"><svg viewBox="0 0 10 10"><polyline points="2,5 4,7 8,3"/></svg></div>50+ Patents</div>
-    <div class="trust-divider"></div>
-    <div class="trust-item"><div class="trust-check"><svg viewBox="0 0 10 10"><polyline points="2,5 4,7 8,3"/></svg></div>Microsoft Founder</div>
-    <div class="trust-divider"></div>
-    <div class="trust-item"><div class="trust-check"><svg viewBox="0 0 10 10"><polyline points="2,5 4,7 8,3"/></svg></div>Enterprise Ready</div>
-    <div class="trust-divider"></div>
-    <div class="trust-item"><div class="trust-check"><svg viewBox="0 0 10 10"><polyline points="2,5 4,7 8,3"/></svg></div>Working POC</div>
-  </div>
-  <div id="memory-canvas" style="margin-top:64px"><canvas id="net"></canvas></div>
-</section>
 
-<!-- LOGOS -->
-<div class="logos-strip">
-  <p>Integrates with your enterprise stack</p>
-  <div class="logos-row">
-    <span class="logo-name">Salesforce</span>
-    <span class="logo-name">Zendesk</span>
-    <span class="logo-name">ServiceNow</span>
-    <span class="logo-name">Microsoft</span>
-    <span class="logo-name">Workday</span>
-    <span class="logo-name">SAP</span>
-  </div>
+<div class="hero-content">
+
+<h1>
+AI Support Workers That
+<span>Remember Every Customer</span>
+</h1>
+
+<p>
+Automating customer support for retail and ecommerce with governed AI memory,
+personalized experiences, and compliant operations.
+</p>
+
+<a href="#" class="btn btn-primary">
+Request Demo
+</a>
+
+<a href="#about" class="btn btn-secondary">
+Learn More
+</a>
+
 </div>
 
-<!-- PRODUCT -->
-<section id="product" style="background:#fff">
-  <div class="container">
-    <p class="section-label">Product</p>
-    <h2 class="section-title">Memory that knows your customer.<br/>Context your agents can trust.</h2>
-    <p class="section-sub">A governed memory layer that surfaces everything your AI agent needs — in real time, with full auditability.</p>
-    <div class="product-wrap">
-      <div class="product-card">
-        <div class="card-topbar">
-          <div class="card-title-bar"><div class="card-dot"></div><span class="card-label">Customer Memory Card</span></div>
-          <span class="card-badge">● Live</span>
-        </div>
-        <div class="card-body">
-          <div class="card-section">
-            <div class="card-section-label">Customer Profile</div>
-            <div class="profile-row">
-              <div class="avatar">SR</div>
-              <div><div class="profile-name">Sarah Reynolds</div><div class="profile-meta">Enterprise · Acme Corp · Since Jan 2021</div></div>
-            </div>
-            <div class="tag-row"><span class="tag tag-blue">Gold Tier</span><span class="tag tag-amber">SLA Priority</span><span class="tag tag-red">Escalation Risk</span></div>
-          </div>
-          <div class="card-section">
-            <div class="card-section-label">Current Issue</div>
-            <div style="font-size:12px;color:var(--text);font-weight:600;margin-bottom:4px">SSO authentication failing after domain migration</div>
-            <div style="font-size:11px;color:var(--muted)">Channel: Voice → CRM · 4 min ago · Ticket #TK-88291</div>
-          </div>
-          <div class="card-section">
-            <div class="card-section-label">Previous Tickets</div>
-            <div class="ticket-row"><span class="ticket-id">#TK-77041</span><span class="ticket-desc">API rate limit exceeded</span><span class="status-resolved">Resolved</span></div>
-            <div class="ticket-row"><span class="ticket-id">#TK-72190</span><span class="ticket-desc">SAML config issue</span><span class="status-resolved">Resolved</span></div>
-            <div class="ticket-row"><span class="ticket-id">#TK-68044</span><span class="ticket-desc">Billing discrepancy Q3</span><span class="status-open">Open</span></div>
-          </div>
-          <div class="card-section">
-            <div class="card-section-label">SLA Status</div>
-            <div class="sla-row"><span style="font-size:11px;color:var(--muted)">Response</span><div class="sla-bar-wrap"><div class="sla-bar" style="width:55%"></div></div><span style="font-size:11px;color:var(--muted)">2h 12m left</span></div>
-            <div class="sla-row"><span style="font-size:11px;color:var(--muted)">Resolution</span><div class="sla-bar-wrap"><div class="sla-bar warn" style="width:22%"></div></div><span style="font-size:11px;color:#d97706">48m left</span></div>
-          </div>
-          <div class="card-section">
-            <div class="card-section-label">AI Summary</div>
-            <div class="ai-summary">Customer has 3 prior SSO-related escalations. Likely cause: Azure AD tenant ID mismatch post-migration. Recommended action: Re-provision SAML metadata in admin portal.</div>
-            <div class="citation-row"><span style="font-size:10px;color:var(--muted);font-weight:600">Sources:</span><span class="cite-chip">KB-4421</span><span class="cite-chip">TK-72190</span><span class="cite-chip">Policy v2.4</span></div>
-          </div>
-          <div class="card-section">
-            <div class="card-section-label">Compliance Controls</div>
-            <div class="compliance-row">
-              <div class="comp-item"><div class="comp-check"><svg viewBox="0 0 10 10"><polyline points="2,5 4,7 8,3"/></svg></div>GDPR</div>
-              <div class="comp-item"><div class="comp-check"><svg viewBox="0 0 10 10"><polyline points="2,5 4,7 8,3"/></svg></div>SOC 2</div>
-              <div class="comp-item"><div class="comp-check"><svg viewBox="0 0 10 10"><polyline points="2,5 4,7 8,3"/></svg></div>HIPAA</div>
-              <div class="comp-item"><div class="comp-check"><svg viewBox="0 0 10 10"><polyline points="2,5 4,7 8,3"/></svg></div>Retention: 90d</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div style="padding-top:8px">
-        <p class="section-label">Customer Memory Card</p>
-        <h3 style="font-size:clamp(22px,2.8vw,32px);font-weight:800;letter-spacing:-0.03em;line-height:1.2;margin-bottom:20px;color:var(--text)">Every customer interaction,<br/>perfectly in context.</h3>
-        <p style="font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:36px">Your AI agents get a complete, governed view of each customer — their history, open issues, SLA status, and compliance constraints — before they say a word.</p>
-        <div style="display:flex;flex-direction:column;gap:18px">
-          <div style="display:flex;gap:14px;align-items:flex-start">
-            <div style="width:22px;height:22px;border-radius:6px;background:var(--accent-light);border:1px solid var(--accent-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"><polyline points="2,6 5,9 10,3"/></svg></div>
-            <div><strong style="font-size:13px;font-weight:700;color:var(--text)">Identity Resolution</strong><br/><span style="font-size:12px;color:var(--muted)">Unify customer identity across every channel and system of record.</span></div>
-          </div>
-          <div style="display:flex;gap:14px;align-items:flex-start">
-            <div style="width:22px;height:22px;border-radius:6px;background:var(--accent-light);border:1px solid var(--accent-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"><polyline points="2,6 5,9 10,3"/></svg></div>
-            <div><strong style="font-size:13px;font-weight:700;color:var(--text)">Source Attribution</strong><br/><span style="font-size:12px;color:var(--muted)">Every AI insight is linked to its source — KB articles, tickets, policies.</span></div>
-          </div>
-          <div style="display:flex;gap:14px;align-items:flex-start">
-            <div style="width:22px;height:22px;border-radius:6px;background:var(--accent-light);border:1px solid var(--accent-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"><polyline points="2,6 5,9 10,3"/></svg></div>
-            <div><strong style="font-size:13px;font-weight:700;color:var(--text)">Memory Governance</strong><br/><span style="font-size:12px;color:var(--muted)">Enforce retention policies, access controls, and compliance rules automatically.</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
 
-<!-- FEATURES -->
-<section id="features" style="background:var(--bg);border-top:1px solid var(--border)">
-  <div class="container">
-    <p class="section-label">Capabilities</p>
-    <h2 class="section-title">Built for enterprise.<br/>Designed for trust.</h2>
-    <p class="section-sub">Six foundational capabilities that make AI agents reliable in production — not just in demos.</p>
-    <div class="features-grid">
-      <div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 20 20"><circle cx="10" cy="7" r="3"/><path d="M3 18c0-4 3.1-7 7-7s7 3 7 7"/></svg></div><div class="feat-title">Identity Resolution</div><div class="feat-desc">Merge fragmented customer identities across CRM, helpdesk, voice, and email into a single governed profile.</div></div>
-      <div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="3"/><circle cx="3" cy="5" r="1.5"/><circle cx="17" cy="5" r="1.5"/><circle cx="3" cy="15" r="1.5"/><circle cx="17" cy="15" r="1.5"/><line x1="10" y1="7" x2="3" y2="5"/><line x1="10" y1="7" x2="17" y2="5"/><line x1="10" y1="13" x2="3" y2="15"/><line x1="10" y1="13" x2="17" y2="15"/></svg></div><div class="feat-title">Customer Memory Graph</div><div class="feat-desc">A knowledge graph of every customer interaction, enriched with semantic context and temporal history.</div></div>
-      <div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 20 20"><path d="M10 2L3 6v4c0 4.4 3 8.5 7 9.5 4-1 7-5.1 7-9.5V6L10 2z"/></svg></div><div class="feat-title">Memory Governance</div><div class="feat-desc">Centrally define what agents can remember, for how long, and under what conditions — with full audit trail.</div></div>
-      <div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 20 20"><path d="M9 3H5a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4"/><path d="M9 11L17 3"/><path d="M13 3h4v4"/></svg></div><div class="feat-title">Source Attribution</div><div class="feat-desc">Every fact the agent uses is traceable to a source, eliminating hallucination risk in regulated environments.</div></div>
-      <div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 20 20"><rect x="2" y="3" width="16" height="14" rx="2"/><line x1="2" y1="7" x2="18" y2="7"/><circle cx="10" cy="13" r="2.5"/></svg></div><div class="feat-title">Retention Controls</div><div class="feat-desc">Configurable retention schedules by data category, customer segment, and regulation. Right to erasure handled automatically.</div></div>
-      <div class="feat-card"><div class="feat-icon"><svg viewBox="0 0 20 20"><rect x="6" y="1" width="8" height="12" rx="2"/><path d="M4 13h12v5a1 1 0 01-1 1H5a1 1 0 01-1-1v-5z"/></svg></div><div class="feat-title">AI Agent Context</div><div class="feat-desc">Surface the right memory at the right moment — structured for LLMs, latency-optimized, with policy enforcement at the prompt layer.</div></div>
-    </div>
-  </div>
-</section>
+<section id="about">
 
-<!-- FOUNDER -->
-<section id="founder" class="founder-section">
-  <div class="container">
-    <p class="section-label">Leadership</p>
-    <div class="founder-wrap" style="margin-top:48px">
-      <div class="founder-left">
-        <div class="founder-photo">JN</div>
-        <div class="founder-name">Jagadish Nomula</div>
-        <div class="founder-role">Founder & CEO</div>
-        <div class="founder-stats">
-          <div class="founder-stat"><strong>50+</strong><span>Patents</span></div>
-          <div class="founder-stat"><strong>15+</strong><span>Years</span></div>
-          <div class="founder-stat"><strong>MSFT</strong><span>Alumni</span></div>
-        </div>
-      </div>
-      <div>
-        <div class="founder-quote">"Enterprise AI doesn't fail on intelligence — it fails on memory. Agents that can't remember, can't comply, and can't be trusted."</div>
-        <p class="founder-bio">Jagadish Nomula is a veteran of Microsoft's enterprise AI and cloud infrastructure teams, where he spent over a decade building systems at the intersection of large-scale data and organizational intelligence. With more than 50 granted patents in AI, identity, and distributed systems, he brings deep technical and product insight to the problem of enterprise memory governance.</p>
-        <p class="founder-bio">He founded Metaworkers.AI after identifying a critical gap: enterprise AI deployments consistently break down not due to model capability, but due to the absence of a governed, auditable memory layer that can operate at scale across regulated industries.</p>
-        <div class="badge-row">
-          <span class="badge"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="5"/><path d="M4 6l1.5 1.5 3-3"/></svg>Microsoft Alumnus</span>
-          <span class="badge"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="10" height="10" rx="2"/><path d="M4 6h4M6 4v4"/></svg>50+ Patents</span>
-          <span class="badge"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 1l1.5 3h3l-2.5 2 1 3L6 7.5 3 9l1-3L1.5 4h3z"/></svg>Enterprise AI</span>
-          <span class="badge"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="5"/><path d="M6 3v3l2 1.5"/></svg>Working POC</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<h2 class="section-title">
+About Metaworkers.AI
+</h2>
 
-<!-- CTA -->
-<div class="cta-section">
-  <p class="section-label" style="text-align:center">Get Started</p>
-  <h2>Give Your AI Agents<br/>a Memory They Can Trust</h2>
-  <p class="cta-sub">Transform customer support with governed, compliant, enterprise memory. Reach us at info@metaworkers.ai </p>
-  <div class="hero-btns">
-    <button class="btn-primary">Request Demo</button>
-    <button class="btn-secondary">Become a Design Partner →</button>
-  </div>
+<div class="about">
+
+Metaworkers.AI builds AI Support Workers that resolve customer issues while remembering customer history, preferences, loyalty status and previous interactions.
+
+Unlike traditional chatbots, our workers use governed memory to provide personalized, compliant and intelligent customer experiences across every channel.
+
 </div>
 
-<!-- FOOTER -->
+</section>
+
+<section id="features">
+
+<h2 class="section-title">
+Features
+</h2>
+
+<div class="features-grid">
+
+<div class="card">
+<h3>🧠 Lifetime Customer Memory</h3>
+<p>Remembers customer history, orders and preferences.</p>
+</div>
+
+<div class="card">
+<h3>📞 Omnichannel Support</h3>
+<p>Works across chat, email, voice and social media.</p>
+</div>
+
+<div class="card">
+<h3>🎯 Personalization</h3>
+<p>Provides intelligent recommendations and responses.</p>
+</div>
+
+<div class="card">
+<h3>🔒 Compliance & Governance</h3>
+<p>Built-in retention, deletion and audit controls.</p>
+</div>
+
+<div class="card">
+<h3>⚡ AI Automation</h3>
+<p>Handles refunds, returns and operational workflows.</p>
+</div>
+
+<div class="card">
+<h3>🏢 Enterprise Ready</h3>
+<p>Secure architecture built for modern retail businesses.</p>
+</div>
+
+</div>
+
+</section>
+
 <footer>
-  <div class="footer-logo"><div style="width:7px;height:7px;background:var(--accent);border-radius:50%"></div>Metaworkers<span style="color:var(--accent)">.AI</span></div>
-  <div class="footer-links">
-    <a href="#">Privacy</a>
-    <a href="#">Security</a>
-    <a href="#">Terms</a>
-    <a href="#" onclick="document.getElementById('contact-modal').style.display='flex';return false">Contact</a>
-  </div>
-  <div class="footer-copy">© 2025 Metaworkers AI, Inc.</div>
+© 2026 Metaworkers.AI. All Rights Reserved.
 </footer>
 
-<!-- Floating Contact Button -->
-<div style="position:fixed;bottom:28px;right:28px;z-index:200">
-  <button onclick="document.getElementById('contact-modal').style.display='flex'" style="background:var(--accent);color:#fff;font-size:13px;font-weight:700;padding:12px 22px;border-radius:100px;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(37,99,235,0.3);display:flex;align-items:center;gap:8px;transition:all .2s" onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='var(--accent)'">
-    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H2a1 1 0 00-1 1v7a1 1 0 001 1h4l2 3 2-3h3a1 1 0 001-1V3a1 1 0 00-1-1z"/></svg>
-    Contact Us
-  </button>
-</div>
-
-<!-- CONTACT MODAL -->
-<div id="contact-modal" class="modal-overlay" onclick="if(event.target===this)this.style.display='none'">
-  <div class="modal-box" style="max-width:480px">
-    <button class="modal-close" onclick="document.getElementById('contact-modal').style.display='none'">×</button>
-    <div class="modal-badge"><div class="modal-badge-dot"></div><span>Get in Touch</span></div>
-    <div class="modal-title">Contact Metaworkers.AI</div>
-    <div class="modal-sub">Request a demo, ask about pricing, or explore a design partnership.</div>
-    <div class="field-wrap"><label class="field-label">Full Name</label><input type="text" class="field-input" placeholder="Jane Smith"/></div>
-    <div class="field-wrap"><label class="field-label">Work Email</label><input type="email" class="field-input" placeholder="jane@company.com"/></div>
-    <div class="field-wrap"><label class="field-label">Company</label><input type="text" class="field-input" placeholder="Acme Corporation"/></div>
-    <div class="field-wrap"><label class="field-label">How can we help?</label><textarea rows="3" class="field-input" placeholder="Tell us about your use case..." style="resize:none"></textarea></div>
-    <button class="submit-btn" onclick="this.textContent='✓ Message sent!';this.style.background='#16a34a';setTimeout(()=>{document.getElementById('contact-modal').style.display='none';this.textContent='Send Message';this.style.background='var(--accent)'},2000)">Send Message</button>
-    <div class="modal-divider">
-      <div class="contact-detail"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"><path d="M1 3h12v9a1 1 0 01-1 1H2a1 1 0 01-1-1V3z"/><path d="M1 3l6 5 6-5"/></svg><a href="mailto:info@metaworkers.ai">info@metaworkers.ai</a></div>
-      <div class="contact-detail"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"><path d="M12 9.3c-.7-.5-1.4-.7-2.1-.3l-.9.5c-.2.1-.5.1-.7-.1C6.8 8 6 6.8 5.6 5.7c-.1-.2 0-.5.1-.7l.5-.9c.4-.7.2-1.4-.3-2.1L5 1.2C4.4.5 3.5.4 2.8.9L1.9 1.6C1 2.3.7 3.5 1.1 4.6c1.1 3.2 3.1 6 6 7.9 1.1.7 2.5.5 3.4-.3l.7-.7c.6-.8.5-1.6-.2-2.2z"/></svg><span>+1 (650) 555-0192</span></div>
-      <div class="contact-detail"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="6" r="2"/><path d="M7 1C4.2 1 2 3.2 2 6c0 3.5 5 8 5 8s5-4.5 5-8c0-2.8-2.2-5-5-5z"/></svg><span>San Francisco, CA · Seattle, WA</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- SIGNUP MODAL -->
-<div id="signup-modal" class="modal-overlay" onclick="if(event.target===this)this.style.display='none'">
-  <div class="modal-box" style="max-width:440px">
-    <button class="modal-close" onclick="document.getElementById('signup-modal').style.display='none'">×</button>
-    <div class="modal-badge"><div class="modal-badge-dot"></div><span>Early Access</span></div>
-    <div class="modal-title">Create your account</div>
-    <div class="modal-sub">Join enterprise teams building with governed AI memory.</div>
-    <div style="display:flex;gap:12px;margin-bottom:14px">
-      <div style="flex:1"><label class="field-label">First Name</label><input type="text" class="field-input" placeholder="Jane"/></div>
-      <div style="flex:1"><label class="field-label">Last Name</label><input type="text" class="field-input" placeholder="Smith"/></div>
-    </div>
-    <div class="field-wrap"><label class="field-label">Work Email</label><input type="email" class="field-input" placeholder="jane@company.com"/></div>
-    <div class="field-wrap"><label class="field-label">Company</label><input type="text" class="field-input" placeholder="Acme Corporation"/></div>
-    <div class="field-wrap"><label class="field-label">Password</label><input type="password" class="field-input" placeholder="Min. 8 characters"/></div>
-    <p style="font-size:11px;color:var(--light);margin-bottom:16px;line-height:1.6">By signing up you agree to our <a href="#" style="color:var(--accent);font-weight:600">Terms of Service</a> and <a href="#" style="color:var(--accent);font-weight:600">Privacy Policy</a>.</p>
-    <button class="submit-btn" onclick="this.textContent='✓ Account created!';this.style.background='#16a34a';setTimeout(()=>{document.getElementById('signup-modal').style.display='none';this.textContent='Create Account';this.style.background='var(--accent)'},2000)">Create Account</button>
-    <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:16px">Already have an account? <a href="#" style="color:var(--accent);font-weight:600">Sign in</a></p>
-  </div>
-</div>
-
-<script>
-const canvas = document.getElementById('net');
-const ctx = canvas.getContext('2d');
-const wrap = document.getElementById('memory-canvas');
-function resize(){canvas.width=wrap.offsetWidth*devicePixelRatio;canvas.height=wrap.offsetHeight*devicePixelRatio;ctx.scale(devicePixelRatio,devicePixelRatio)}
-resize();
-window.addEventListener('resize',()=>{resize();initNodes()});
-const W=()=>wrap.offsetWidth,H=()=>wrap.offsetHeight;
-const NODES=[
-  {label:'CRM',sub:'Salesforce',col:'#2563EB'},
-  {label:'Voice',sub:'Conversations',col:'#7c3aed'},
-  {label:'Zendesk',sub:'Support',col:'#059669'},
-  {label:'Customer',sub:'Identity',col:'#2563EB'},
-  {label:'Memory',sub:'Layer',col:'#2563EB',center:true},
-  {label:'AI Agent',sub:'Support',col:'#d97706'},
-  {label:'Policy',sub:'Governance',col:'#dc2626'},
-  {label:'Salesforce',sub:'CRM',col:'#0891b2'},
-  {label:'Analytics',sub:'Insights',col:'#65a30d'},
-];
-let nodes=[];
-function initNodes(){
-  const w=W(),h=H(),cx=w/2,cy=h/2,r=Math.min(w,h)*0.36;
-  nodes=NODES.map((n,i)=>{
-    if(n.center)return{...n,x:cx,y:cy,vx:0,vy:0,r:30,pulse:0};
-    const angle=(i/(NODES.length-1))*Math.PI*2-Math.PI/2;
-    return{...n,x:cx+Math.cos(angle)*r,y:cy+Math.sin(angle)*r,vx:0,vy:0,r:22,pulse:Math.random()*Math.PI*2};
-  });
-}
-initNodes();
-const CENTER=()=>nodes.find(n=>n.center);
-let t=0;
-function draw(){
-  const w=W(),h=H();
-  ctx.clearRect(0,0,w,h);
-  t+=0.008;
-  const center=CENTER();
-  nodes.forEach(n=>{
-    if(n.center)return;
-    const grad=ctx.createLinearGradient(n.x,n.y,center.x,center.y);
-    grad.addColorStop(0,'rgba(37,99,235,0)');
-    grad.addColorStop(0.5,'rgba(37,99,235,0.18)');
-    grad.addColorStop(1,'rgba(37,99,235,0.04)');
-    ctx.beginPath();ctx.moveTo(n.x,n.y);ctx.lineTo(center.x,center.y);
-    ctx.strokeStyle=grad;ctx.lineWidth=1;ctx.stroke();
-    const dp2=(Math.sin((t*0.4+n.pulse))*0.5+0.5);
-    const dx=n.x+(center.x-n.x)*dp2,dy=n.y+(center.y-n.y)*dp2;
-    ctx.beginPath();ctx.arc(dx,dy,2.5,0,Math.PI*2);
-    ctx.fillStyle='rgba(37,99,235,0.5)';ctx.fill();
-  });
-  nodes.forEach(n=>{
-    const pulse=Math.sin(t*1.2+n.pulse)*0.5+0.5;
-    if(n.center){
-      ctx.beginPath();ctx.arc(n.x,n.y,n.r+8+pulse*4,0,Math.PI*2);
-      ctx.strokeStyle='rgba(37,99,235,0.12)';ctx.lineWidth=1;ctx.stroke();
-      ctx.beginPath();ctx.arc(n.x,n.y,n.r+16+pulse*6,0,Math.PI*2);
-      ctx.strokeStyle='rgba(37,99,235,0.06)';ctx.lineWidth=1;ctx.stroke();
-    }
-    ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
-    if(n.center){ctx.fillStyle='rgba(37,99,235,0.1)';ctx.strokeStyle='rgba(37,99,235,0.5)';}
-    else{ctx.fillStyle='rgba(255,255,255,0.95)';ctx.strokeStyle=n.col+'55';}
-    ctx.lineWidth=n.center?1.5:1;ctx.fill();ctx.stroke();
-    ctx.fillStyle=n.center?'#1e3a8a':'#0F172A';
-    ctx.font=`${n.center?'700 ':'600 '}${n.center?12:11}px Inter,-apple-system,sans-serif`;
-    ctx.textAlign='center';ctx.textBaseline='middle';
-    ctx.fillText(n.label,n.x,n.y-(n.sub?4:0));
-    if(n.sub){ctx.fillStyle='#94A3B8';ctx.font='400 9px Inter,-apple-system,sans-serif';ctx.fillText(n.sub,n.x,n.y+7);}
-  });
-  requestAnimationFrame(draw);
-}
-draw();
-</script>
 </body>
 </html>
+```
